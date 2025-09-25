@@ -24,10 +24,12 @@ class CheckoutFragment : Fragment() {
         with(binding){
             val args: CheckoutFragmentArgs by navArgs()
             txtProductName.setText(args.productName)
+            edtAddress.setOnClickListener {
+                val action = CheckoutFragmentDirections
+                    .actionCheckoutFragmentToAddressFragment()
+                findNavController().navigate(action)
 
-            val action =
-                CheckoutFragmentDirections.actionCheckoutFragmentToAddressFragment3()
-            findNavController().navigate(action)
+            }
         }
         }
     }
