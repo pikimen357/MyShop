@@ -24,11 +24,23 @@ class CheckoutFragment : Fragment() {
         with(binding){
             val args: CheckoutFragmentArgs by navArgs()
             txtProductName.setText(args.productName)
+
             edtAddress.setOnClickListener {
                 val action = CheckoutFragmentDirections
                     .actionCheckoutFragmentToAddressFragment()
                 findNavController().navigate(action)
 
+            }
+
+            findNavController().currentBackStackEntry?.savedStateHandle?.let { handle ->
+                handle.getLiveData<String>("address")
+                    .observe(viewLifecycleOwner) { res ->
+                        edtAddress.setText(res)
+                    }
+            }
+
+            btnDone.setOnClickListener {
+                findNavController().navigateUp()
             }
         }
         }
